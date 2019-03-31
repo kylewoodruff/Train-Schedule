@@ -56,6 +56,8 @@ $(document).ready(function() {
     );
   });
 
+
+  // TODO: need help here trying to get on the child element the first time and the duration.
   database.ref().on("child_added", function(snapshot) {
     // console.log(snapshot.val().trainName);
     // console.log(snapshot.val().destination);
