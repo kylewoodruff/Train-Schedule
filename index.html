@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    
+    <title>Train Schedule</title>
+  </head>
+
+  <body>
+    <!-- JumboTron -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="jumbotron bg-dark text-center">
+            <h1 class=" display-4 text-white">Oriental Express</h1>
+            <p class="lead text-white">
+              Detartures often?
+            </p>
+            <hr class="my-4" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Train table -->
+      <div class="card mb-3">
+        <div class="card-header bg-dark text-white">Current Train Schedule</div>
+        <div class="card-body">
+          <table id="train-table" class="table">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Train Name</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Frequency (min)</th>
+                <th scope="col">Next Arrival</th>
+                <th scope="col">Minuets Away</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Trenton Express</td>
+                <td>Trenton</td>
+                <td>25</td>
+                <td>4:34 PM</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>Oregan Trail</td>
+                <td>Salem</td>
+                <td>500</td>
+                <td>5:00 PM</td>
+                <td>2000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Add train form -->
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          Add Train
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="form-group">
+              <label for="formInput">Train Name </label>
+              <input
+                type="text"
+                class="form-control"
+                id="train-name"
+                placeholder=""
+              />
+            </div>
+            <div class="form-group">
+              <label for="formInput">Destination</label>
+              <input
+                type="text"
+                class="form-control"
+                id="destination"
+                placeholder=""
+              />
+            </div>
+            <form>
+              <div class="form-group">
+                <label for="formInput">
+                  First Train Time (HH:mm - military time)</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="first-train"
+                  placeholder=""
+                />
+              </div>
+            </form>
+            <div class="form-group">
+              <label for="formInput">Frequency (min)</label>
+              <input
+                type="text"
+                class="form-control"
+                id="frequency"
+                placeholder=""
+              />
+            </div>
+            <div class="float-left">
+              <button type="button" id="submit" class="btn btn-dark">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Moment js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!-- Firebase DB -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <!-- Database initialize -->
+    <script src="firebaseapi.js"></script>
+    <!-- App js -->
+    <script src="./app.js"></script>
+  </body>
+</html>
