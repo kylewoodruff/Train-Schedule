@@ -5,10 +5,13 @@ var trainName = "";
 var destination = "";
 
 function convertTime(time) {
-  var timeConverted = moment(time, "HH:mm").subtract(1, "day");
-  console.log(timeConverted);
+  var timeConverted = moment(time, "HH:mm").subtract(1, "year");
+  //var timeConverted = moment(time, "HH:mm");
+  //timeConverted.subtract(1,"year");
+  console.log("In convertTime Func:", timeConverted);
   return timeConverted;
 }
+// moment("123", "hmm").format("HH:mm") === "01:23"
 
 function getTimeToNext(time, freq) {
   let diffTime = moment().diff(moment(time), "minutes");
@@ -58,19 +61,38 @@ $(document).ready(function() {
 
 
   // TODO: need help here trying to get on the child element the first time and the duration.
-  database.ref().on("child_added", function(snapshot) {
-    // console.log(snapshot.val().trainName);
-    // console.log(snapshot.val().destination);
-    // console.log(snapshot.val().firstTrainTime);
-    // console.log(snapshot.val().frequency);
+ database.ref().on("child_added", function(snapshot) {
+
+    console.log(snapshot.val().trainName);
+    console.log(snapshot.val().destination);
+    console.log(snapshot.val().firstTrainTime);
+    console.log(snapshot.val().frequency);
+    
+    var tempTrainTime = snapshot.val().firstTrainTime;
+    console.log("Temp Time: ",tempTrainTime);
+
+    var convertedTime = convertTime(tempTrainTime);
+    console.log(convertedTime);
+    
+ 
+    // Retrieve new posts as they are added to our database
+    snapshot.forEach(function(childSnapshot) {
+      var childfreq = childSnapshot.val().frequency;
+      var childData = childSnapshot.val();
+      console.log("frequency: ",childfreq, childData);
     
 
-    snapshot.forEach(function(childSnapshot) {
-      var childKey = childSnapshot.key;
-      var childData = childSnapshot.val();
-      console.log(childKey, childData);
-      let tempTime = childKey.equalTo('firstTrainTime').val();
-      console.log("Specific Time: ",tempTime);
+    //   if (childKey === 'firstTrainTime') {
+    //       tempTime = childData;
+    //       console.log("Time from loop", tempTime);
+    //       convertedTime = convertTime(tempTime);
+    //       console.log("Converted TIme:", convertedTime);
+          
+    //   } else if (childKey === 'frequency') {
+    //     tempFreq = childData;
+    //     console.log('Freq from loop', tempFreq);
+    //   }
+      
       
 
 
