@@ -7,6 +7,8 @@
     storageBucket: "train-schedule-b7fe0.appspot.com",
     messagingSenderId: "1094803062494"
   };
+
   firebase.initializeApp(config);
 
   var database = firebase.database();
+  //var ref = database.ref().child();

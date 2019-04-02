@@ -8,21 +8,27 @@ function convertTime(time) {
   var timeConverted = moment(time, "HH:mm").subtract(1, "year");
   //var timeConverted = moment(time, "HH:mm");
   //timeConverted.subtract(1,"year");
-  console.log("In convertTime Func:", timeConverted);
+  //console.log("In convertTime Func:", timeConverted);
   return timeConverted;
 }
 // moment("123", "hmm").format("HH:mm") === "01:23"
 
-function getTimeToNext(time, freq) {
+function minToNext(time, freq) {
   let diffTime = moment().diff(moment(time), "minutes");
   console.log("time diff: ", diffTime);
   let remainder = diffTime % freq;
   console.log("Remainder: ", remainder);
   let minutes = freq - remainder;
   console.log("Remainder of diff & current: ", minutes);
+  return minutes;
+}
+
+function timeToNext(minutes) {
   let nextTrain = moment().add(minutes, "minutes");
-  console.log("Arrival Time: ", +moment(nextTrain).format("hh:mm"));
-  return minutes, nextTrain;
+  let formatTime = nextTrain.format("hh:mm A");
+  //console.log("Next T:",nextTrain);
+  //console.log("Arrival Time: ", + moment(nextTrain).format("HH:mm"));
+  return formatTime;
 }
 
 $(document).ready(function() {
@@ -59,61 +65,36 @@ $(document).ready(function() {
     );
   });
 
-
   // TODO: need help here trying to get on the child element the first time and the duration.
- database.ref().on("child_added", function(snapshot) {
+  database.ref().on("child_added", function(snapshot) {
+    // console.log(snapshot.val().trainName);
+    // console.log(snapshot.val().destination);
+    // console.log(snapshot.val().firstTrainTime);
+    // console.log(snapshot.val().frequency);
+    var jsonObj = snapshot.exportVal();
+    //console.log(jsonObj);
 
-    console.log(snapshot.val().trainName);
-    console.log(snapshot.val().destination);
-    console.log(snapshot.val().firstTrainTime);
-    console.log(snapshot.val().frequency);
-    
-    var tempTrainTime = snapshot.val().firstTrainTime;
-    console.log("Temp Time: ",tempTrainTime);
+    var jsonTime = jsonObj.firstTrainTime;
+    console.log(jsonTime);
+    var c = convertTime(jsonTime);
+    var b = parseInt(jsonTime);
 
-    var convertedTime = convertTime(tempTrainTime);
-    console.log(convertedTime);
-    
- 
-    // Retrieve new posts as they are added to our database
-    snapshot.forEach(function(childSnapshot) {
-      var childfreq = childSnapshot.val().frequency;
-      var childData = childSnapshot.val();
-      console.log("frequency: ",childfreq, childData);
-    
+    var jsonFreq = jsonObj.frequency;
+    console.log(jsonFreq);
+    var a = parseInt(jsonFreq);
 
-    //   if (childKey === 'firstTrainTime') {
-    //       tempTime = childData;
-    //       console.log("Time from loop", tempTime);
-    //       convertedTime = convertTime(tempTime);
-    //       console.log("Converted TIme:", convertedTime);
-          
-    //   } else if (childKey === 'frequency') {
-    //     tempFreq = childData;
-    //     console.log('Freq from loop', tempFreq);
-    //   }
-      
-      
+    var minsToNext = minToNext(c, a);
+    console.log(minsToNext);
 
-
-      
-        
-
-      // let startTime = snapshot.firstTime;
-      // let storedFreq = snapshot.frequency;
-      // let convtTime = convertTime(startTime);
-      // getTimeToNext(convtTime, storedFreq);
-      // console.log(getTimeToNext);
-    });
-
-
+    var nextTrain = timeToNext(minsToNext);
+    console.log("Next Train Time:", nextTrain);
 
     var newTR = $("<tr>").append(
       $("<td>").text(snapshot.val().trainName),
       $("<td>").text(snapshot.val().destination),
       $("<td>").text(snapshot.val().frequency),
-      $("<td>").text("Empty Next Arr"),
-      $("<td>").text("empty Minuets Away")
+      $("<td>").text(nextTrain),
+      $("<td>").text(minsToNext)
     );
     $("#train-table > tbody").append(newTR);
   });
